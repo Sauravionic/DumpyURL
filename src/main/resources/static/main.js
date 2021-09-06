@@ -4,7 +4,7 @@ $(document).ready(function() {
         // console.log($("#urlinput").val());
         $.ajax({
             type : 'POST',
-            url : 'http://localhost:8080/shortenurl',
+            url : 'https://dumpyurl.herokuapp.com/shortenurl',
             data : JSON.stringify({
                 "full_url" : $("#urlinput").val()
             }),

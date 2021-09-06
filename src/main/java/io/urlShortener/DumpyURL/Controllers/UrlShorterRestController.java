@@ -42,7 +42,7 @@ public class UrlShorterRestController {
     }
 
     private void setShortUrl(String randomChar, ShortenUrl shortenUrl) throws MalformedURLException {
-        shortenUrl.setShort_url("http://localhost:8080/s/"+randomChar);
+        shortenUrl.setShort_url("https://dumpyurl.herokuapp.com/s/"+randomChar);
         shortenUrlList.put(randomChar, shortenUrl);
     }
 
