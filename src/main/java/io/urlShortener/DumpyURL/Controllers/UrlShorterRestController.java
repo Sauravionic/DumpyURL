@@ -3,13 +3,16 @@ package io.urlShortener.DumpyURL.Controllers;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.hash.Hashing;
 import io.urlShortener.DumpyURL.Model.ShortenUrl;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +24,16 @@ public class UrlShorterRestController {
 
     @PostMapping("/shortenurl")
     public ResponseEntity<ShortenUrl> getShortenUrl(@RequestBody ShortenUrl shortenUrl) throws MalformedURLException {
-        String randomChar = getRandomChars();
-        setShortUrl(randomChar, shortenUrl);
-        return ResponseEntity.of(Optional.of(shortenUrl));
+        UrlValidator urlValidator = new UrlValidator(
+                new String[]{"http","https"}
+        );
+        if (urlValidator.isValid(shortenUrl.getFull_url())) {
+            String randomChar = getRandomChars(shortenUrl.getFull_url());
+            setShortUrl(randomChar, shortenUrl);
+            return ResponseEntity.of(Optional.of(shortenUrl));
+        }
+        shortenUrl.setError("Please enter valid URl - starting from http or https (Tip:- Copy the url)");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(shortenUrl);
     }
 
     @GetMapping("/s/{randomstring}")
@@ -36,11 +46,8 @@ public class UrlShorterRestController {
         shortenUrlList.put(randomChar, shortenUrl);
     }
 
-    private String getRandomChars() {
-        String randomStr = "";
-        String possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (int i = 0; i < 5; i++)
-            randomStr += possibleChars.charAt((int) Math.floor(Math.random() * possibleChars.length()));
+    private String getRandomChars(String url) {
+        String randomStr = Hashing.murmur3_32().hashString(url, StandardCharsets.UTF_8).toString();
         return randomStr;
     }
 

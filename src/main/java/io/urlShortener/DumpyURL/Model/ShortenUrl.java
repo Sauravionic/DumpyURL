@@ -4,6 +4,15 @@ public class ShortenUrl {
 
     private String full_url;
     private String short_url;
+    private String error;
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
 
     public String getFull_url() {
         return full_url;
