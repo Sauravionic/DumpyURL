@@ -27,7 +27,7 @@ Users should be able to:
 
 ### Video
 
-![Video](./Video/dumpy.mp4)
+![Video](https://drive.google.com/file/d/1JjH2CNj2M9vSvMnSWrwwpfTQI3wYJ8Iy/view?usp=sharing)
 
 
 ### Links
