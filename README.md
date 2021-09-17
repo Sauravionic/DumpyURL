@@ -25,12 +25,10 @@ Users should be able to:
 - See hover states for all interactive elements on the page
 - Shows error if wrong url provided(Tip:- Copy the url and paste it in the shortening input).
 
-### Screenshot
+### Video
 
-![](./screenshot.jpg)
-![Mobile Responsive](./images/mobile.png)
-![Desktop Responsive](./images/desktop.png)
-![Active State](./images/active.png)
+![Video](./Video/dumpy.mp4)
+
 
 ### Links
 
